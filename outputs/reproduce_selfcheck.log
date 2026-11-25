@@ -1,0 +1,201 @@
+== tls_inventory ==
+tls_inventory: pinned commit 0085a1ff885d6a446369cf73a4430f75af22be55
+tls_inventory: excerpts cover 13 files
+[step] I-01 src/xrpld/overlay/README.md /outgoing TLS encrypted/
+  [PASS] I-01: line 33: To establish a protocol connection, a peer makes an outgoing TLS encrypted
+[step] I-02 src/xrpld/overlay/detail/ConnectAttempt.h /using stream_type = boost::beast::ssl_stream<middle_type>;/
+  [PASS] I-02: line 44: using stream_type = boost::beast::ssl_stream<middle_type>;
+[step] I-03 src/xrpld/overlay/detail/ConnectAttempt.cpp /stream_\.set_verify_mode\(boost::asio::ssl::verify_none\);/
+  [PASS] I-03: line 175: stream_.set_verify_mode(boost::asio::ssl::verify_none);
+[step] I-04 src/xrpld/overlay/detail/ConnectAttempt.cpp /stream_\.async_handshake\(/
+  [PASS] I-04: line 176: stream_.async_handshake(
+[step] I-05 src/xrpld/overlay/detail/ConnectAttempt.cpp /boost::asio::ssl::stream_base::client,/
+  [PASS] I-05: line 177: boost::asio::ssl::stream_base::client,
+[step] I-06 src/xrpld/overlay/Overlay.h /using stream_type = boost::beast::ssl_stream<socket_type>;/
+  [PASS] I-06: line 52: using stream_type = boost::beast::ssl_stream<socket_type>;
+[step] I-07 src/xrpld/overlay/detail/OverlayImpl.cpp /setup\.context = make_SSLContext\(\"\"\);/
+  [PASS] I-07: line 1550: setup.context = make_SSLContext("");
+[step] I-08 src/libxrpl/basics/make_SSLContext.cpp /defaultCipherList = "TLSv1\.2:!CBC:!DSS:!PSK:!eNULL:!aNULL";/
+  [PASS] I-08: line 104: std::string const defaultCipherList = "TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL";
+[step] I-09 src/libxrpl/basics/make_SSLContext.cpp /int defaultRSAKeyBits = 2048;/
+  [PASS] I-09: line 66: int defaultRSAKeyBits = 2048;
+[step] I-10 src/libxrpl/basics/make_SSLContext.cpp /X509_gmtime_adj\(X509_get_notAfter\(x509\), 2 \* 365 \* 24 \* 60 \* 60\);/
+  [PASS] I-10: line 172: X509_gmtime_adj(X509_get_notAfter(x509), 2 * 365 * 24 * 60 * 60);
+[step] I-11 src/libxrpl/basics/make_SSLContext.cpp /X509_sign\(x509, defaultEphemeralPrivateKey, EVP_sha256\(\)\)/
+  [PASS] I-11: line 233: if (!X509_sign(x509, defaultEphemeralPrivateKey, EVP_sha256()))
+[step] I-12 src/libxrpl/basics/make_SSLContext.cpp /boost::asio::ssl::context::no_tlsv1 \|/
+  [PASS] I-12: line 356: boost::asio::ssl::context::no_tlsv1 |
+[step] I-13 src/libxrpl/basics/make_SSLContext.cpp /boost::asio::ssl::context::no_tlsv1_1 \|/
+  [PASS] I-13: line 357: boost::asio::ssl::context::no_tlsv1_1 |
+[step] I-14 src/libxrpl/basics/make_SSLContext.cpp /context->set_verify_mode\(boost::asio::ssl::verify_none\);/
+  [PASS] I-14: line 391: context->set_verify_mode(boost::asio::ssl::verify_none);
+[step] I-15 src/xrpld/rpc/detail/ServerHandler.cpp /p\.context = make_SSLContext\(p\.ssl_ciphers\);/
+  [PASS] I-15: line 1090: p.context = make_SSLContext(p.ssl_ciphers);
+[step] I-16 src/xrpld/rpc/detail/ServerHandler.cpp /p\.context = make_SSLContextAuthed\(/
+  [PASS] I-16: line 1092: p.context = make_SSLContextAuthed(
+[step] I-17 src/xrpld/rpc/detail/ServerHandler.cpp /if \(bundle && p\.count\(\"peer\"\) > 0\)/
+  [PASS] I-17: line 245: if (bundle && p.count("peer") > 0)
+[step] I-18 src/xrpld/app/misc/detail/WorkSSL.cpp /boost::asio::ssl::context::tlsv12_client\)/
+  [PASS] I-18: line 41: boost::asio::ssl::context::tlsv12_client)
+[step] I-19 src/xrpld/app/misc/detail/WorkSSL.cpp /auto ec = context_\.preConnectVerify\(stream_, host_\);/
+  [PASS] I-19: line 44: auto ec = context_.preConnectVerify(stream_, host_);
+[step] I-20 src/xrpld/app/misc/detail/WorkSSL.cpp /auto err = ec \? ec : context_\.postConnectVerify\(stream_, host_\);/
+  [PASS] I-20: line 53: auto err = ec ? ec : context_.postConnectVerify(stream_, host_);
+[step] I-21 src/xrpld/app/misc/detail/WorkSSL.cpp /stream_\.async_handshake\(/
+  [PASS] I-21: line 57: stream_.async_handshake(
+[step] I-22 src/libxrpl/net/HTTPClient.cpp /mSocket\.async_handshake\(/
+  [PASS] I-22: line 297: mSocket.async_handshake(
+[step] I-23 src/xrpld/app/misc/detail/ValidatorSite.cpp /sp = std::make_shared<detail::WorkSSL>\(/
+  [PASS] I-23: line 270: sp = std::make_shared<detail::WorkSSL>(
+[step] I-24 src/xrpld/app/misc/RemoteExclusionListFetcher.cpp /sp = std::make_shared<detail::WorkSSL>\(/
+  [PASS] I-24: line 196: sp = std::make_shared<detail::WorkSSL>(
+[step] I-25 src/libxrpl/net/RegisterSSLCerts.cpp /CertOpenSystemStore\(0, "ROOT"\)/
+  [PASS] I-25: line 49: CertOpenSystemStore(0, "ROOT"), certStoreDelete};
+[step] I-26 src/xrpld/overlay/detail/PeerImp.cpp /auto const sharedValue = makeSharedValue\(\*stream_ptr_, journal_\);/
+  [PASS] I-26: line 798: auto const sharedValue = makeSharedValue(*stream_ptr_, journal_);
+[step] I-27 src/xrpld/overlay/detail/PeerImp.cpp /if \(inbound_\)/
+  [PASS] I-27: line 205: if (inbound_)
+tls_inventory: 27/27 checks PASS
+wrote data/tls_inventory.json
+== hybrid_model ==
+== hybrid model arithmetic ==
+[step] ML-KEM-512
+  [PASS] ML-KEM-512 ciphertext bytes match params (768 == 768)
+  [PASS] ML-KEM-512 public key bytes match params
+  [PASS] ML-KEM-512 wire bytes = 3 header + 32 X25519 + 768 ct = 803
+  [PASS] ML-KEM-512 total = client + server (171.99 == 80.99 + 91.0)
+  [PASS] ML-KEM-512 hybrid overhead vs X25519-only = 41.35 us (recorded 41.35)
+[step] ML-KEM-768
+  [PASS] ML-KEM-768 ciphertext bytes match params (1088 == 1088)
+  [PASS] ML-KEM-768 public key bytes match params
+  [PASS] ML-KEM-768 wire bytes = 3 header + 32 X25519 + 1088 ct = 1123
+  [PASS] ML-KEM-768 total = client + server (174.99 == 84.72 + 90.27)
+  [PASS] ML-KEM-768 hybrid overhead vs X25519-only = 44.35 us (recorded 44.35)
+[step] ML-KEM-1024
+  [PASS] ML-KEM-1024 ciphertext bytes match params (1568 == 1568)
+  [PASS] ML-KEM-1024 public key bytes match params
+  [PASS] ML-KEM-1024 wire bytes = 3 header + 32 X25519 + 1568 ct = 1603
+  [PASS] ML-KEM-1024 total = client + server (197.1 == 93.12 + 103.98)
+  [PASS] ML-KEM-1024 hybrid overhead vs X25519-only = 66.46 us (recorded 66.46)
+[step] wire format completeness
+  [PASS] fixed header+key bytes = 35 (version 1 + kem_id 1 + mode 1 + X25519 pub 32); ciphertext length fixed by kem_id
+  [PASS] every wire-format field has a fixed value or length
+  [PASS] wire format declares no unspecified bytes
+hybrid_model: PASS (0 failures)
+== migration_model ==
+== migration plan model ==
+[step] stages present: ['S0', 'S1', 'S2', 'S3', 'S4']
+  [PASS] stages are S0..S4 in order
+[step] S0 Pin the TLS policy and finish the inventory
+  [PASS] S0 has a gate
+  [PASS] S0 has at least 2 work items
+  [PASS] S0 gate names its check
+[step] S1 Application-layer hybrid KEM in the peer handshake
+  [PASS] S1 has a gate
+  [PASS] S1 has at least 2 work items
+  [PASS] S1 gate names its check
+[step] S2 Peers require the hybrid half
+  [PASS] S2 has a gate
+  [PASS] S2 has at least 2 work items
+  [PASS] S2 gate names its check
+[step] S3 TLS-stack migration (OpenSSL provider, RPC/WebSocket)
+  [PASS] S3 has a gate
+  [PASS] S3 has at least 2 work items
+  [PASS] S3 gate names its check
+[step] S4 Review and re-evaluate
+  [PASS] S4 has a gate
+  [PASS] S4 has at least 2 work items
+  [PASS] S4 gate names its check
+[step] planning horizon: S0..S3 total 15-30 weeks
+  [PASS] S0..S3 durations sum to 15-30 weeks (got 15-30)
+[step] open design decisions
+  [PASS] D-01 is labelled an explicit open design decision
+  [PASS] D-01 states its question
+  [PASS] D-01 status is open
+  [PASS] D-02 is labelled an explicit open design decision
+  [PASS] D-02 states its question
+  [PASS] D-02 status is open
+  [PASS] D-03 is labelled an explicit open design decision
+  [PASS] D-03 states its question
+  [PASS] D-03 status is open
+  [PASS] exactly 3 open design decisions (D-01, D-02, D-03)
+migration_model: PASS (0 failures)
+== measurement structure check ==
+== measurement logs structural check ==
+[step] KEM parameter lengths (section A)
+  [PASS] ML-KEM-512 lengths pk 800 sk 1632 ct 768 ss 32 match params
+  [PASS] ML-KEM-768 lengths pk 1184 sk 2400 ct 1088 ss 32 match params
+  [PASS] ML-KEM-1024 lengths pk 1568 sk 3168 ct 1568 ss 32 match params
+[step] KEM RESULT lines (section B)
+  [PASS] ML-KEM-512 keygen/encaps/decaps RESULT line present
+  [PASS] ML-KEM-768 keygen/encaps/decaps RESULT line present
+  [PASS] ML-KEM-1024 keygen/encaps/decaps RESULT line present
+[step] implicit rejection (section C)
+  [PASS] implicit rejection total is 108/108
+  [PASS] ML-KEM-512 implicit rejection 36/36
+  [PASS] ML-KEM-768 implicit rejection 36/36
+  [PASS] ML-KEM-1024 implicit rejection 36/36
+[step] timing + key reuse (sections D, E)
+  [PASS] ML-KEM-768 valid/invalid decaps timing RESULT present
+  [PASS] ML-KEM-768 key reuse 100/100 roundtrips, 100/100 distinct
+  [PASS] wrong-key decaps does not recover the secret
+  [PASS] replay decaps is deterministic
+  [PASS] bench_kem ends OK
+[step] hybrid bench
+  [PASS] X25519 keygen RESULT present
+  [PASS] X25519 derive RESULT present
+  [PASS] ML-KEM-512 hybrid handshake RESULT present
+  [PASS] ML-KEM-512 hybrid wire-bytes RESULT present
+  [PASS] ML-KEM-768 hybrid handshake RESULT present
+  [PASS] ML-KEM-768 hybrid wire-bytes RESULT present
+  [PASS] ML-KEM-1024 hybrid handshake RESULT present
+  [PASS] ML-KEM-1024 hybrid wire-bytes RESULT present
+  [PASS] control C-1: all-zero X25519 peer key rejected
+  [PASS] control C-2: tampered ciphertext changes the hybrid secret
+  [PASS] control C-3: tampered X25519 part changes the hybrid secret
+  [PASS] bench_hybrid ends OK
+[step] classical baseline + environment
+  [PASS] openssl speed X25519 line present
+  [PASS] openssl speed P-256 line present
+  [PASS] openssl speed Ed25519 line present
+  [PASS] environment records the pinned liboqs commit
+  [PASS] environment records the pinned postfiatd commit
+check_measurements: PASS (0 failures)
+== digest verification ==
+./.github/workflows/ci.yml: OK
+./.gitignore: OK
+./README.md: OK
+./data/hybrid_model.json: OK
+./data/kem_params.json: OK
+./data/migration_plan.json: OK
+./data/postfiatd_pin.json: OK
+./data/source_excerpts.json: OK
+./data/tls_inventory.json: OK
+./docs/CERT_HANDSHAKE.md: OK
+./docs/CLAIMS.md: OK
+./docs/DECISION_MEMO.md: OK
+./docs/FAILURE_MODES.md: OK
+./docs/HYBRID_KEM.md: OK
+./docs/KEM_COMPARISON.md: OK
+./docs/MIGRATION_PLAN.md: OK
+./docs/REMEDIATION.md: OK
+./docs/REPRODUCTION.md: OK
+./docs/SOURCES.md: OK
+./docs/TLS_INVENTORY.md: OK
+./harness/bench_hybrid.c: OK
+./harness/bench_kem.c: OK
+./harness/classical_speed.sh: OK
+./harness/environment.sh: OK
+./harness/run_benchmarks.sh: OK
+./outputs/hybrid_model.log: OK
+./outputs/migration_model.log: OK
+./outputs/tls_inventory.log: OK
+./reproduce.sh: OK
+./scripts/check_measurements.py: OK
+./scripts/hybrid_model.py: OK
+./scripts/make_excerpts.py: OK
+./scripts/migration_model.py: OK
+./scripts/run_all.sh: OK
+./scripts/tls_inventory.py: OK
+./verify_digests.sh: OK
+REPRODUCE OK

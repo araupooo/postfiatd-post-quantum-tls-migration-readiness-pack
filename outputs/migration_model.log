@@ -1,0 +1,37 @@
+== migration plan model ==
+[step] stages present: ['S0', 'S1', 'S2', 'S3', 'S4']
+  [PASS] stages are S0..S4 in order
+[step] S0 Pin the TLS policy and finish the inventory
+  [PASS] S0 has a gate
+  [PASS] S0 has at least 2 work items
+  [PASS] S0 gate names its check
+[step] S1 Application-layer hybrid KEM in the peer handshake
+  [PASS] S1 has a gate
+  [PASS] S1 has at least 2 work items
+  [PASS] S1 gate names its check
+[step] S2 Peers require the hybrid half
+  [PASS] S2 has a gate
+  [PASS] S2 has at least 2 work items
+  [PASS] S2 gate names its check
+[step] S3 TLS-stack migration (OpenSSL provider, RPC/WebSocket)
+  [PASS] S3 has a gate
+  [PASS] S3 has at least 2 work items
+  [PASS] S3 gate names its check
+[step] S4 Review and re-evaluate
+  [PASS] S4 has a gate
+  [PASS] S4 has at least 2 work items
+  [PASS] S4 gate names its check
+[step] planning horizon: S0..S3 total 15-30 weeks
+  [PASS] S0..S3 durations sum to 15-30 weeks (got 15-30)
+[step] open design decisions
+  [PASS] D-01 is labelled an explicit open design decision
+  [PASS] D-01 states its question
+  [PASS] D-01 status is open
+  [PASS] D-02 is labelled an explicit open design decision
+  [PASS] D-02 states its question
+  [PASS] D-02 status is open
+  [PASS] D-03 is labelled an explicit open design decision
+  [PASS] D-03 states its question
+  [PASS] D-03 status is open
+  [PASS] exactly 3 open design decisions (D-01, D-02, D-03)
+migration_model: PASS (0 failures)

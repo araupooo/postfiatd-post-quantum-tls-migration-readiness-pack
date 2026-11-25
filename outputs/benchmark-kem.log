@@ -1,0 +1,84 @@
+bench_kem: liboqs 0.14.0 bench_n=500 timing_n=1000
+environment: single thread, CLOCK_MONOTONIC, liboqs 0.14.0
+== A. FIPS 203 parameter table (sizes) ==
+[step] ML-KEM-512
+  ML-KEM-512: liboqs pk=800 sk=1632 ct=768 ss=32
+  [PASS] public key length
+  [PASS] secret key length
+  [PASS] ciphertext length
+  [PASS] shared secret length
+[step] ML-KEM-768
+  ML-KEM-768: liboqs pk=1184 sk=2400 ct=1088 ss=32
+  [PASS] public key length
+  [PASS] secret key length
+  [PASS] ciphertext length
+  [PASS] shared secret length
+[step] ML-KEM-1024
+  ML-KEM-1024: liboqs pk=1568 sk=3168 ct=1568 ss=32
+  [PASS] public key length
+  [PASS] secret key length
+  [PASS] ciphertext length
+  [PASS] shared secret length
+== B. keygen/encaps/decaps performance (single thread) ==
+[step] ML-KEM-512
+  ML-KEM-512: keygen 13.36 us, encaps 12.87 us, decaps 16.75 us (n=500)
+RESULT ML-KEM-512 keygen_us=13.36 encaps_us=12.87 decaps_us=16.75 n=500
+[step] ML-KEM-768
+  ML-KEM-768: keygen 20.03 us, encaps 24.45 us, decaps 28.30 us (n=500)
+RESULT ML-KEM-768 keygen_us=20.03 encaps_us=24.45 decaps_us=28.30 n=500
+[step] ML-KEM-1024
+  ML-KEM-1024: keygen 27.07 us, encaps 25.24 us, decaps 32.65 us (n=500)
+RESULT ML-KEM-1024 keygen_us=27.07 encaps_us=25.24 decaps_us=32.65 n=500
+== C. implicit-rejection spot check ==
+[step] ML-KEM-512
+  ML-KEM-512 bitflip byte 0: rc=0 ss_sha256=a744de7c02281365b8c4ee398bc99df4eba17c66417bd9d720b2696c5daf557a (ref f028fc8b0508c96976147dfeeb6cd59faf4f321f282bff400f80a04930598e6b)
+  ML-KEM-512 bitflip byte 311: rc=0 ss_sha256=4d1ac3733c67ef4e3082103c5bf90c278a8231044ee6ac904ab2d1e86ea78d3d (ref f028fc8b0508c96976147dfeeb6cd59faf4f321f282bff400f80a04930598e6b)
+  ML-KEM-512 bitflip byte 622: rc=0 ss_sha256=ff59b86f29f182ed7c17d608a848fe04d9c9dfec432c59b9af32ce85bbce0168 (ref f028fc8b0508c96976147dfeeb6cd59faf4f321f282bff400f80a04930598e6b)
+  ML-KEM-512 random 0: rc=0 ss_sha256=fd501ba2c74f858e6c9a837f14b23f59358f7b689a2c4dcacbc8c5a9aed162ad
+  ML-KEM-512 random 1: rc=0 ss_sha256=d272cc7feabf830e09302f3811d06f41c1ee6634c655bb674b5ef1fc862611e9
+  ML-KEM-512 random 2: rc=0 ss_sha256=3f531f0f4f8e7c197cdb9b80ecc0160a15a99311df4eda1348722045dbdaa83a
+  ML-KEM-512 all-zero: rc=0 ss_sha256=0dd2a72d12865f67bf00e908723f12039f83b3718c8cf476be3274b7b49990cb
+RESULT ML-KEM-512 implicit_rejection 36/36 invalid ciphertexts rejected to a pseudorandom shared secret
+  [PASS] all invalid ciphertexts rejected
+[step] ML-KEM-768
+  ML-KEM-768 bitflip byte 0: rc=0 ss_sha256=c2ad4b5b062e3fba6a97c0c601eaa076512b17a46e770288c582ca3a243e0d68 (ref 066ad89343e943b4b9372269d05989c714d7599e4abd75971dc57ff8f6f3501c)
+  ML-KEM-768 bitflip byte 311: rc=0 ss_sha256=43b58949fa354846e4314e5245f5b1a070df54972a7041e2dc08614c70cbec88 (ref 066ad89343e943b4b9372269d05989c714d7599e4abd75971dc57ff8f6f3501c)
+  ML-KEM-768 bitflip byte 622: rc=0 ss_sha256=024a9aecd6d9e87a83a0001e5175407b390e1b12738de565668848b815d8baa0 (ref 066ad89343e943b4b9372269d05989c714d7599e4abd75971dc57ff8f6f3501c)
+  ML-KEM-768 random 0: rc=0 ss_sha256=0b906403b5900605cc333b5686013a5dcd8e6daa92a3c2a82182dacf87c96329
+  ML-KEM-768 random 1: rc=0 ss_sha256=e9351423d0995f46cb57c9860ba016c1cbdfc3354a9b38d35180be7c9f224add
+  ML-KEM-768 random 2: rc=0 ss_sha256=73b2554c31349bc862213e8587b10769112763be1d51341e85acce709c3bdc45
+  ML-KEM-768 all-zero: rc=0 ss_sha256=6041e10f669c285330d988fa5aaa96aa3eb50e3034d0f6bdeea390895db2da3e
+RESULT ML-KEM-768 implicit_rejection 36/36 invalid ciphertexts rejected to a pseudorandom shared secret
+  [PASS] all invalid ciphertexts rejected
+[step] ML-KEM-1024
+  ML-KEM-1024 bitflip byte 0: rc=0 ss_sha256=cd56bb792fc4a0a2bcf61abc0c76279b8cbee7fb20b06af51809eb487b3d3f07 (ref f585fe5cab21aea4847ea0d38a1d9d3fd623ecba92e790823d9833e9cf44b725)
+  ML-KEM-1024 bitflip byte 311: rc=0 ss_sha256=cc3365f5811287c97c4f699a8e9df6ecf6abcd076b72752984b8af084fa97364 (ref f585fe5cab21aea4847ea0d38a1d9d3fd623ecba92e790823d9833e9cf44b725)
+  ML-KEM-1024 bitflip byte 622: rc=0 ss_sha256=6300927246c7107bd5605cc7a8117227a269bd82b9ac6021d730c4f35606394d (ref f585fe5cab21aea4847ea0d38a1d9d3fd623ecba92e790823d9833e9cf44b725)
+  ML-KEM-1024 random 0: rc=0 ss_sha256=006a06db059fe651e73f139c3ce2a3a06432b975e670889a4e198bced3040141
+  ML-KEM-1024 random 1: rc=0 ss_sha256=eec7d378fde4e45ce892c5bb7c7537f58cd192fb92a7239d704281c608e9c682
+  ML-KEM-1024 random 2: rc=0 ss_sha256=4d3dc12df15ecc97a559e8a108818a7ddbe09e17a4eeed4526b85b4cf9bb4903
+  ML-KEM-1024 all-zero: rc=0 ss_sha256=fff8691e1766d289d2efde29097f21d3feb7103c853c438d77cb556ac41ca99a
+RESULT ML-KEM-1024 implicit_rejection 36/36 invalid ciphertexts rejected to a pseudorandom shared secret
+  [PASS] all invalid ciphertexts rejected
+RESULT implicit_rejection_total 108/108
+== D. coarse timing: valid vs invalid decaps (ML-KEM-768) ==
+[step] valid decaps
+[step] invalid decaps (random ciphertext)
+  ML-KEM-768 decaps valid 26.219 us invalid 25.300 us (n=1000, delta -0.918 us, -3.5%)
+RESULT ML-KEM-768 decaps_timing valid_us=26.219 invalid_us=25.300 n=1000
+== E. key reuse (ML-KEM-768, one keypair) ==
+  encaps 0: rc=0/0 ct_sha256=76d5681393f4ef997911a885045d0197625bec680d4c950c6eeefd930197c883
+  encaps 1: rc=0/0 ct_sha256=0c3e302a15c1947c15731ba26857b124c3c3bf4101e5e6a6ee96da4560ba435a
+  encaps 2: rc=0/0 ct_sha256=765d3bca53a192624234d288db8783ae4f9846930e65b9d2da296a56cc111a14
+  encaps 99: rc=0/0 ct_sha256=8b93b1716791e82ab76476e27682019fd28e598b8055e37d57da6b486a3369d7
+RESULT ML-KEM-768 key_reuse roundtrips=100/100 distinct_ciphertexts=100/100
+  [PASS] 100/100 roundtrips under one keypair
+  [PASS] 100/100 distinct ciphertexts
+[step] wrong-key decaps
+  wrong-key decaps: rc=0 ss_sha256=b6fb946b62adc829f91acad3a0b4558060878d9a3b60f650a11c2601134a6617 (ref 42353d1915b53e962b6d8cafe7cdcf170a607a08b332e4cf68a3f7464fc36f12)
+RESULT ML-KEM-768 wrong_key_decaps rc=0 matches_ref=0
+  [PASS] wrong key does not recover the shared secret
+[step] replay decaps
+RESULT ML-KEM-768 replay_decaps deterministic=1
+  [PASS] replay decaps is deterministic
+RESULT bench_kem OK

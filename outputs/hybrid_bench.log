@@ -1,0 +1,50 @@
+bench_hybrid: liboqs 0.14.0 n=200
+environment: single thread, CLOCK_MONOTONIC, OpenSSL EVP X25519
+== A. X25519 classical baseline ==
+[step] X25519 keygen
+  X25519: keygen 80.31 us
+RESULT X25519 keygen_us=80.31 n=200
+[step] X25519 derive
+  X25519: derive 65.32 us
+RESULT X25519 derive_us=65.32 n=200
+[step] X25519 roundtrip agreement
+  A->B ss_sha256=b7998b145776887efe3a24f61a77c4785f2a8e763a7b0232027bf788d3d3c7fd
+  B->A ss_sha256=b7998b145776887efe3a24f61a77c4785f2a8e763a7b0232027bf788d3d3c7fd
+  [PASS] X25519 both directions agree
+== B. hybrid handshake cost (X25519 + ML-KEM) ==
+[step] ML-KEM-512 hybrid
+  ML-KEM-512 hybrid: client 80.99 us, server 91.00 us, handshake_total 171.99 us
+  client ss_sha256=bafbd3761be2956f8b6d9c32dad8790a9a3096e60290a38f745653060edabe87 server ss_sha256=bafbd3761be2956f8b6d9c32dad8790a9a3096e60290a38f745653060edabe87
+RESULT ML-KEM-512 hybrid client_us=80.99 server_us=91.00 total_us=171.99 n=200
+  [PASS] hybrid client/server shared secrets agree
+  wire: X25519 pub 32 B + ML-KEM pk 800 B + ML-KEM ct 768 B
+RESULT ML-KEM-512 wire_bytes x25519_pub=32 mlkem_pk=800 mlkem_ct=768
+[step] ML-KEM-768 hybrid
+  ML-KEM-768 hybrid: client 84.72 us, server 90.27 us, handshake_total 174.99 us
+  client ss_sha256=4ac22d860577fb73cf49fdecfc99d93aaf8cd705da14484262fd164def4bc057 server ss_sha256=4ac22d860577fb73cf49fdecfc99d93aaf8cd705da14484262fd164def4bc057
+RESULT ML-KEM-768 hybrid client_us=84.72 server_us=90.27 total_us=174.99 n=200
+  [PASS] hybrid client/server shared secrets agree
+  wire: X25519 pub 32 B + ML-KEM pk 1184 B + ML-KEM ct 1088 B
+RESULT ML-KEM-768 wire_bytes x25519_pub=32 mlkem_pk=1184 mlkem_ct=1088
+[step] ML-KEM-1024 hybrid
+  ML-KEM-1024 hybrid: client 93.12 us, server 103.98 us, handshake_total 197.10 us
+  client ss_sha256=f26a5ad6f58a2d31abecd14e0ebc351722506670fc8cc77154d0b1000d171f65 server ss_sha256=f26a5ad6f58a2d31abecd14e0ebc351722506670fc8cc77154d0b1000d171f65
+RESULT ML-KEM-1024 hybrid client_us=93.12 server_us=103.98 total_us=197.10 n=200
+  [PASS] hybrid client/server shared secrets agree
+  wire: X25519 pub 32 B + ML-KEM pk 1568 B + ML-KEM ct 1568 B
+RESULT ML-KEM-1024 wire_bytes x25519_pub=32 mlkem_pk=1568 mlkem_ct=1568
+== C. hybrid controls (ML-KEM-768) ==
+  reference hybrid ss_sha256=86e1b6a0a4092275166820484bb9a6f6eca4f39ed808cae7a995a8db95b2c895
+[step] C-1 all-zero X25519 peer key
+  all-zero peer derive rc=-1
+RESULT hybrid all_zero_x25519 rc=-1 rejected_by_openssl
+  [PASS] all-zero X25519 peer key rejected by OpenSSL
+[step] C-2 tampered ML-KEM ciphertext
+  tampered ct decaps rc=0 hybrid ss_sha256=adacbeb341ddd56a52d722f9cd40153d0329aa18c13e809d93065e8d42935c90 (ref 86e1b6a0a4092275166820484bb9a6f6eca4f39ed808cae7a995a8db95b2c895)
+RESULT hybrid tampered_ct rc=0 matches_ref=0
+  [PASS] tampered ciphertext yields a different hybrid secret
+[step] C-3 tampered X25519 shared secret
+  tampered X25519 part hybrid ss_sha256=1ee36e76e9a4a1cddfb632040460f986866b230d30dfcc0b371f7ce31236ca1c (ref 86e1b6a0a4092275166820484bb9a6f6eca4f39ed808cae7a995a8db95b2c895)
+RESULT hybrid tampered_x25519 matches_ref=0
+  [PASS] tampered X25519 part changes the hybrid secret
+RESULT bench_hybrid OK

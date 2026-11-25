@@ -1,0 +1,24 @@
+== hybrid model arithmetic ==
+[step] ML-KEM-512
+  [PASS] ML-KEM-512 ciphertext bytes match params (768 == 768)
+  [PASS] ML-KEM-512 public key bytes match params
+  [PASS] ML-KEM-512 wire bytes = 3 header + 32 X25519 + 768 ct = 803
+  [PASS] ML-KEM-512 total = client + server (171.99 == 80.99 + 91.0)
+  [PASS] ML-KEM-512 hybrid overhead vs X25519-only = 41.35 us (recorded 41.35)
+[step] ML-KEM-768
+  [PASS] ML-KEM-768 ciphertext bytes match params (1088 == 1088)
+  [PASS] ML-KEM-768 public key bytes match params
+  [PASS] ML-KEM-768 wire bytes = 3 header + 32 X25519 + 1088 ct = 1123
+  [PASS] ML-KEM-768 total = client + server (174.99 == 84.72 + 90.27)
+  [PASS] ML-KEM-768 hybrid overhead vs X25519-only = 44.35 us (recorded 44.35)
+[step] ML-KEM-1024
+  [PASS] ML-KEM-1024 ciphertext bytes match params (1568 == 1568)
+  [PASS] ML-KEM-1024 public key bytes match params
+  [PASS] ML-KEM-1024 wire bytes = 3 header + 32 X25519 + 1568 ct = 1603
+  [PASS] ML-KEM-1024 total = client + server (197.1 == 93.12 + 103.98)
+  [PASS] ML-KEM-1024 hybrid overhead vs X25519-only = 66.46 us (recorded 66.46)
+[step] wire format completeness
+  [PASS] fixed header+key bytes = 35 (version 1 + kem_id 1 + mode 1 + X25519 pub 32); ciphertext length fixed by kem_id
+  [PASS] every wire-format field has a fixed value or length
+  [PASS] wire format declares no unspecified bytes
+hybrid_model: PASS (0 failures)
