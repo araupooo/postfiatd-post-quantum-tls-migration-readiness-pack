@@ -1,0 +1,239 @@
+{
+  "checks": [
+    {
+      "description": "peer protocol connections are TLS encrypted (README handshake)",
+      "id": "I-01",
+      "line": 33,
+      "path": "src/xrpld/overlay/README.md",
+      "status": "PASS",
+      "text": "To establish a protocol connection, a peer makes an outgoing TLS encrypted"
+    },
+    {
+      "description": "outgoing peer stream is a Beast SSL stream over TCP",
+      "id": "I-02",
+      "line": 44,
+      "path": "src/xrpld/overlay/detail/ConnectAttempt.h",
+      "status": "PASS",
+      "text": "using stream_type = boost::beast::ssl_stream<middle_type>;"
+    },
+    {
+      "description": "outgoing peer TLS verifies nothing (verify_none)",
+      "id": "I-03",
+      "line": 175,
+      "path": "src/xrpld/overlay/detail/ConnectAttempt.cpp",
+      "status": "PASS",
+      "text": "stream_.set_verify_mode(boost::asio::ssl::verify_none);"
+    },
+    {
+      "description": "outgoing peer performs a TLS client handshake",
+      "id": "I-04",
+      "line": 176,
+      "path": "src/xrpld/overlay/detail/ConnectAttempt.cpp",
+      "status": "PASS",
+      "text": "stream_.async_handshake("
+    },
+    {
+      "description": "outgoing peer handshake is in the client role",
+      "id": "I-05",
+      "line": 177,
+      "path": "src/xrpld/overlay/detail/ConnectAttempt.cpp",
+      "status": "PASS",
+      "text": "boost::asio::ssl::stream_base::client,"
+    },
+    {
+      "description": "overlay peer stream type is a Beast SSL stream",
+      "id": "I-06",
+      "line": 52,
+      "path": "src/xrpld/overlay/Overlay.h",
+      "status": "PASS",
+      "text": "using stream_type = boost::beast::ssl_stream<socket_type>;"
+    },
+    {
+      "description": "peer listener SSL context comes from make_SSLContext (anonymous)",
+      "id": "I-07",
+      "line": 1550,
+      "path": "src/xrpld/overlay/detail/OverlayImpl.cpp",
+      "status": "PASS",
+      "text": "setup.context = make_SSLContext(\"\");"
+    },
+    {
+      "description": "default cipher list is TLS 1.2, no CBC/DSS/PSK/eNULL/aNULL",
+      "id": "I-08",
+      "line": 104,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "std::string const defaultCipherList = \"TLSv1.2:!CBC:!DSS:!PSK:!eNULL:!aNULL\";"
+    },
+    {
+      "description": "anonymous cert uses an ephemeral 2048-bit RSA key",
+      "id": "I-09",
+      "line": 66,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "int defaultRSAKeyBits = 2048;"
+    },
+    {
+      "description": "anonymous self-signed cert is valid for two years",
+      "id": "I-10",
+      "line": 172,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "X509_gmtime_adj(X509_get_notAfter(x509), 2 * 365 * 24 * 60 * 60);"
+    },
+    {
+      "description": "anonymous cert is self-signed with SHA-256",
+      "id": "I-11",
+      "line": 233,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "if (!X509_sign(x509, defaultEphemeralPrivateKey, EVP_sha256()))"
+    },
+    {
+      "description": "TLS 1.0 is disabled in the SSL context options",
+      "id": "I-12",
+      "line": 356,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "boost::asio::ssl::context::no_tlsv1 |"
+    },
+    {
+      "description": "TLS 1.1 is disabled in the SSL context options",
+      "id": "I-13",
+      "line": 357,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "boost::asio::ssl::context::no_tlsv1_1 |"
+    },
+    {
+      "description": "make_SSLContext sets verify_none (anonymous context)",
+      "id": "I-14",
+      "line": 391,
+      "path": "src/libxrpl/basics/make_SSLContext.cpp",
+      "status": "PASS",
+      "text": "context->set_verify_mode(boost::asio::ssl::verify_none);"
+    },
+    {
+      "description": "secure RPC/WebSocket ports use make_SSLContext when no files given",
+      "id": "I-15",
+      "line": 1090,
+      "path": "src/xrpld/rpc/detail/ServerHandler.cpp",
+      "status": "PASS",
+      "text": "p.context = make_SSLContext(p.ssl_ciphers);"
+    },
+    {
+      "description": "secure RPC/WebSocket ports use file-based certs when files given",
+      "id": "I-16",
+      "line": 1092,
+      "path": "src/xrpld/rpc/detail/ServerHandler.cpp",
+      "status": "PASS",
+      "text": "p.context = make_SSLContextAuthed("
+    },
+    {
+      "description": "incoming peer connections are routed from ServerHandler to overlay",
+      "id": "I-17",
+      "line": 245,
+      "path": "src/xrpld/rpc/detail/ServerHandler.cpp",
+      "status": "PASS",
+      "text": "if (bundle && p.count(\"peer\") > 0)"
+    },
+    {
+      "description": "outbound HTTPS client uses a TLS 1.2 client context",
+      "id": "I-18",
+      "line": 41,
+      "path": "src/xrpld/app/misc/detail/WorkSSL.cpp",
+      "status": "PASS",
+      "text": "boost::asio::ssl::context::tlsv12_client)"
+    },
+    {
+      "description": "outbound HTTPS client verifies before connecting",
+      "id": "I-19",
+      "line": 44,
+      "path": "src/xrpld/app/misc/detail/WorkSSL.cpp",
+      "status": "PASS",
+      "text": "auto ec = context_.preConnectVerify(stream_, host_);"
+    },
+    {
+      "description": "outbound HTTPS client verifies after connecting",
+      "id": "I-20",
+      "line": 53,
+      "path": "src/xrpld/app/misc/detail/WorkSSL.cpp",
+      "status": "PASS",
+      "text": "auto err = ec ? ec : context_.postConnectVerify(stream_, host_);"
+    },
+    {
+      "description": "outbound HTTPS client performs a TLS client handshake",
+      "id": "I-21",
+      "line": 57,
+      "path": "src/xrpld/app/misc/detail/WorkSSL.cpp",
+      "status": "PASS",
+      "text": "stream_.async_handshake("
+    },
+    {
+      "description": "HTTPClient performs a TLS client handshake when SSL is on",
+      "id": "I-22",
+      "line": 297,
+      "path": "src/libxrpl/net/HTTPClient.cpp",
+      "status": "PASS",
+      "text": "mSocket.async_handshake("
+    },
+    {
+      "description": "validator-site fetches use the verifying WorkSSL client",
+      "id": "I-23",
+      "line": 270,
+      "path": "src/xrpld/app/misc/detail/ValidatorSite.cpp",
+      "status": "PASS",
+      "text": "sp = std::make_shared<detail::WorkSSL>("
+    },
+    {
+      "description": "exclusion-list fetches use the verifying WorkSSL client",
+      "id": "I-24",
+      "line": 196,
+      "path": "src/xrpld/app/misc/RemoteExclusionListFetcher.cpp",
+      "status": "PASS",
+      "text": "sp = std::make_shared<detail::WorkSSL>("
+    },
+    {
+      "description": "system cert store registration is Windows-only (ROOT store)",
+      "id": "I-25",
+      "line": 49,
+      "path": "src/libxrpl/net/RegisterSSLCerts.cpp",
+      "status": "PASS",
+      "text": "CertOpenSystemStore(0, \"ROOT\"), certStoreDelete};"
+    },
+    {
+      "description": "inbound peer acceptance derives the shared value from the TLS stream",
+      "id": "I-26",
+      "line": 798,
+      "path": "src/xrpld/overlay/detail/PeerImp.cpp",
+      "status": "PASS",
+      "text": "auto const sharedValue = makeSharedValue(*stream_ptr_, journal_);"
+    },
+    {
+      "description": "inbound peers take the accept path (doAccept) after the handshake",
+      "id": "I-27",
+      "line": 205,
+      "path": "src/xrpld/overlay/detail/PeerImp.cpp",
+      "status": "PASS",
+      "text": "if (inbound_)"
+    }
+  ],
+  "negative_searches": [
+    {
+      "pattern": "stream_base::server",
+      "scope": "src/ excluding src/test and src/tests",
+      "verdict": "no server-role async_handshake call in the non-test tree; the only hit in the whole tree is in src/test/jtx/TrustedPublisherServer.h:560; the incoming TLS handshake is performed inside the Beast server Session implementation, not in postfiatd code"
+    },
+    {
+      "pattern": "tlsv1_2|tlsv1_3|min_proto|max_proto|set_min_proto|SSL_CTX_set_min_proto_version|SSL_CTX_set_max_proto_version",
+      "scope": "src/ excluding src/test and src/tests",
+      "verdict": "no explicit TLS version floor/ceiling is set anywhere; only SSLv2/SSLv3/TLS 1.0/TLS 1.1 are disabled, so TLS 1.2 and TLS 1.3 are both negotiable where OpenSSL offers them"
+    },
+    {
+      "pattern": "ssl_ciphers",
+      "scope": "config documentation for the peer (overlay) port",
+      "verdict": "the peer listener calls make_SSLContext(\"\") with an empty cipher list, so it always uses the default cipher list; ssl_ciphers overrides apply to RPC/WebSocket ports only"
+    }
+  ],
+  "pinned_commit": "0085a1ff885d6a446369cf73a4430f75af22be55",
+  "summary": "27/27 checks passed"
+}
